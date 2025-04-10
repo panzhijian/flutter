@@ -1,0 +1,4 @@
+enum RoleType{
+  user,
+  assistant
+}
