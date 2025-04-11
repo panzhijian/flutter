@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../utils/icx_logger.dart';
+import '../utils/network_manager.dart';
 
 class ThirdPage extends StatefulWidget {
   const ThirdPage({super.key});
@@ -11,6 +13,7 @@ class ThirdPage extends StatefulWidget {
 class _ThirdPageState extends State<ThirdPage> {
   @override
   Widget build(BuildContext context) {
+
     ICXLogger.d("33333");
     return Scaffold(
       appBar: AppBar(
@@ -18,9 +21,15 @@ class _ThirdPageState extends State<ThirdPage> {
         // backgroundColor: Colors.blueAccent,
       ),
       backgroundColor: Colors.white,
-      body: Center(
-        child: Text("3333"),
-      ),
+      // body: Center(
+      //   child: Text("3333"),
+      // ),
+      body:          Consumer<NetworkManager>(
+        builder: (context, network, _) {
+          return Center(
+            child: Text(network.connectionStatus.toString()),
+          );
+        })
     );
   }
 }

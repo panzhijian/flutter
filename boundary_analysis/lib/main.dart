@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:boundary_analysis/common_widgets/icx_app.dart';
+import 'package:boundary_analysis/utils/network_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:fluwx/fluwx.dart';
+import 'package:provider/provider.dart';
 
 void main() async{
   // kReleaseMode=true;
@@ -21,9 +23,16 @@ void main() async{
       universalLink: 'https://icarbonx.com/app/',
     );
   }
-
-  runApp(const ICXApp());
-}
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+            create: (_) => NetworkManager()
+        ),
+      ],
+      child: const ICXApp(),
+    ),
+  );}
 
 
 

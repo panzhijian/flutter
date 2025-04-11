@@ -5,10 +5,13 @@ import 'package:boundary_analysis/common_widgets/icx_change_notifier_provider.da
 import 'package:boundary_analysis/router/icx_router.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fluwx/fluwx.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import '../../router/icx_router_path.dart';
 import '../../utils/icx_logger.dart';
+import '../../utils/network_manager.dart';
 import 'home_page_vm.dart';
 
 class HomePage extends StatefulWidget {
@@ -26,6 +29,9 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _addSubscriber();
+
+
+
   }
 
   void _addSubscriber() {
@@ -77,7 +83,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     // final devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
-    // ICXLogger.d(devicePixelRatio);
+    // ICXLogger.d("网络情况"+context.read<NetworkManager>().connectionStatus.toString());
     return ICXChangeNotifierProvider<HomePageVM>(
       create: () => vm,
       child: Scaffold(
@@ -112,9 +118,6 @@ class _HomePageState extends State<HomePage> {
                   },
                   child: const Text("微信登录")),
               ICXConsumer<HomePageVM>(builder: (context, vm, child) {
-                // vm.wechatUserInfo?.headimgurl;
-                ICXLogger.d(vm.wechatUserInfo?.headimgurl);
-
                 return vm.wechatUserInfo?.headimgurl != null
                     ? CachedNetworkImage(
                         imageUrl: vm.wechatUserInfo?.headimgurl ?? "",
